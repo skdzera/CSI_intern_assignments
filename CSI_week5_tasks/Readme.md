@@ -22,7 +22,7 @@ Features
    - Migrate only selected tables or columns based on business logic  
    - Controlled using Python filters and query customization
 
-## 🧰 Tech Stack
+## Tech Stack
 
 - **Language**: Python 3.x
 - **Database**: Microsoft SQL Server
