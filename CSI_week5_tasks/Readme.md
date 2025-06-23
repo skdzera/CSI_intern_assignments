@@ -1,4 +1,4 @@
-# 🛠️ Data Integration & Pipeline Automation Tasks
+# Data Integration & Pipeline Automation Tasks
 
 These tasks demonstrates end-to-end data integration and pipeline automation using **Python** and **SQL Server**, focused on real-world data engineering tasks.
 
