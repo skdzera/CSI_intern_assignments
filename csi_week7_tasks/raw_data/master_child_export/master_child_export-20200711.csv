@@ -1,0 +1,11 @@
+Parent_Sku,Child_Sku,Relationship,Child_Price
+SKU-500,CHD-1863,bundle,145.53
+SKU-501,CHD-1093,variant,194.82
+SKU-502,CHD-1848,bundle,143.74
+SKU-503,CHD-1854,accessory,81.53
+SKU-504,CHD-1974,bundle,154.05
+SKU-505,CHD-1340,accessory,177.16
+SKU-506,CHD-1889,accessory,103.36
+SKU-507,CHD-1639,bundle,80.85
+SKU-508,CHD-1321,accessory,51.23
+SKU-509,CHD-1419,accessory,70.4
