@@ -19,6 +19,8 @@ This project outlines the implementation of an automated ETL (Extract, Transform
 ## Project Requirements
 
 - **Automate** the daily ingestion and loading of three types of files from ADLS Gen2 into SQL tables.
+- Metadata Activity
+- Daily Schedule Triggers
 - **Truncate** the destination table before loading new data.
 - Each file type requires distinct transformations or handling.
 - The solution must be scalable for new files added daily, each with a different date in the filename.
@@ -29,8 +31,15 @@ This project outlines the implementation of an automated ETL (Extract, Transform
 - **Azure Data Lake Storage Gen2**: Source storage for raw files.
 - **Azure SQL Database**: Target data warehouse for loaded data.
 
+<img width="1901" height="906" alt="container" src="https://github.com/user-attachments/assets/3f9cf36e-0bdb-472e-a110-e8b04093f5e8" />
+
+
+
 **Linked Services:**
 - Connect ADF to both ADLS Gen2 (for inputs) and Azure SQL Database (for outputs).
+
+<img width="1893" height="897" alt="7 8" src="https://github.com/user-attachments/assets/7344f337-17bb-4e3c-852c-d7968184af52" />
+
 
 ## File Types & Processing Rules
 
@@ -46,6 +55,9 @@ This project outlines the implementation of an automated ETL (Extract, Transform
 
 The pipeline is organized into three parallel branches—one for each file type.
 
+<img width="1649" height="435" alt="Arcitecture" src="https://github.com/user-attachments/assets/d1c0c2ce-ef23-4fa4-a13e-85a895620997" />
+
+
 1. **Get Metadata**  
    Retrieve file lists for each pattern from respective folders in ADLS Gen2.
 
@@ -58,7 +70,7 @@ The pipeline is organized into three parallel branches—one for each file type.
 
 ### 1. CUST_MSTR File Processing
 
-- **Input:** All files matching `CUST_MSTR_*.csv`
+- **Input:** All files matching `CUST_MSTR*.csv`
 - **Logic:**  
   - Derive a `date` column by extracting and formatting the date from the filename (e.g., `20191112` → `2019-11-12`).
   - Load the data into `CUST_MSTR` after truncating old data.
@@ -74,6 +86,9 @@ The pipeline is organized into three parallel branches—one for each file type.
   )
   ```
 - **Output:** Updated `CUST_MSTR` table with a fresh daily load and added `date` column.
+
+  <img width="1905" height="873" alt="dataflow_preview" src="https://github.com/user-attachments/assets/370f38c9-f0ff-4a84-b8ab-edcd3c0f71fe" />
+
 
 ### 2. master_child_export File Processing
 
@@ -104,6 +119,9 @@ The pipeline is organized into three parallel branches—one for each file type.
     ```
 - **Output:** Daily-refreshed `master_child` table with new `date` and `date_key` columns.
 
+  <img width="1008" height="463" alt="image" src="https://github.com/user-attachments/assets/de220679-b495-48a7-bc4a-ed3c57ecda96" />
+
+
 ### 3. H_ECOM_ORDER File Processing
 
 - **Input:** Files named `H_ECOM_ORDER.csv` for each date.
@@ -112,6 +130,9 @@ The pipeline is organized into three parallel branches—one for each file type.
   - Table `H_ECOM_Orders` is truncated, and new data is loaded as is.
 - **Output:** Latest e-commerce order data in `H_ECOM_Orders`.
 
+  <img width="1020" height="460" alt="image" src="https://github.com/user-attachments/assets/d94a571e-6649-4894-a8b2-ff396d1fe1fa" />
+
+
 ## Dataset Configuration
 
 - **Source Datasets:**  
@@ -119,6 +140,9 @@ The pipeline is organized into three parallel branches—one for each file type.
 
 - **Sink Datasets:**  
   - One dataset per SQL target table.
+    
+<img width="570" height="823" alt="7 7" src="https://github.com/user-attachments/assets/c49e38c0-f191-47fb-8f47-74f335002a25" />
+
 
 ## Data Flow Logic
 
@@ -131,6 +155,8 @@ The pipeline is organized into three parallel branches—one for each file type.
 - **Trigger:**  
   - Set up a Scheduled Trigger in ADF to run the pipeline once daily.
   - Time pipeline execution for off-peak hours to optimize resource usage.
+
+ <img width="576" height="873" alt="Pasted image 20250706195730" src="https://github.com/user-attachments/assets/402e5fee-52ca-47f4-a715-676da480dbc4" />
 
 ## Best Practices
 
